@@ -1,0 +1,491 @@
+{
+  "model_version": "v1.0.0",
+  "champion_model": "Ridge Regression",
+  "trained_at": "2026-10-16 10:15:29",
+  "training_records": 4120,
+  "holdout_records": 1030,
+  "training_period": {
+    "start": "2021-01-02",
+    "end": "2024-12-08"
+  },
+  "holdout_period": {
+    "start": "2024-12-08",
+    "end": "2025-12-05"
+  },
+  "candidate_models": {
+    "Ridge Regression": {
+      "cv_mae": 516.3,
+      "test_mae": 586.15,
+      "test_rmse": 866.0,
+      "test_r2": 0.9316,
+      "test_mape": 15.66
+    },
+    "HistGradientBoosting": {
+      "cv_mae": 579.31,
+      "test_mae": 625.55,
+      "test_rmse": 904.53,
+      "test_r2": 0.9254,
+      "test_mape": 14.98
+    },
+    "Random Forest": {
+      "cv_mae": 615.61,
+      "test_mae": 686.81,
+      "test_rmse": 972.28,
+      "test_r2": 0.9137,
+      "test_mape": 16.26
+    },
+    "XGBoost Regressor": {
+      "cv_mae": 592.07,
+      "test_mae": 636.29,
+      "test_rmse": 925.75,
+      "test_r2": 0.9218,
+      "test_mape": 15.15
+    }
+  },
+  "final_metrics": {
+    "mae": 586.15,
+    "rmse": 866.0,
+    "r2": 0.9316,
+    "mape": 15.66
+  },
+  "crop_breakdown": {
+    "Cotton": {
+      "mae": 692.38,
+      "rmse": 895.07,
+      "r2": -0.1632,
+      "mape": 7.65,
+      "count": 105,
+      "mean_price": 8730.76
+    },
+    "Gram": {
+      "mae": 467.17,
+      "rmse": 582.99,
+      "r2": -0.1455,
+      "mape": 6.8,
+      "count": 105,
+      "mean_price": 6716.99
+    },
+    "Maize": {
+      "mae": 292.67,
+      "rmse": 331.67,
+      "r2": -2.4191,
+      "mape": 11.82,
+      "count": 105,
+      "mean_price": 2570.31
+    },
+    "Onion": {
+      "mae": 658.88,
+      "rmse": 806.15,
+      "r2": -0.1756,
+      "mape": 27.32,
+      "count": 105,
+      "mean_price": 2831.05
+    },
+    "Potato": {
+      "mae": 493.08,
+      "rmse": 593.02,
+      "r2": -0.868,
+      "mape": 34.12,
+      "count": 105,
+      "mean_price": 1762.4
+    },
+    "Rice": {
+      "mae": 244.4,
+      "rmse": 303.62,
+      "r2": -0.2479,
+      "mape": 6.67,
+      "count": 103,
+      "mean_price": 3823.08
+    },
+    "Soybean": {
+      "mae": 480.78,
+      "rmse": 576.58,
+      "r2": 0.0171,
+      "mape": 7.88,
+      "count": 100,
+      "mean_price": 6087.77
+    },
+    "Tomato": {
+      "mae": 836.93,
+      "rmse": 1009.33,
+      "r2": -0.0619,
+      "mape": 34.94,
+      "count": 101,
+      "mean_price": 2763.54
+    },
+    "Turmeric": {
+      "mae": 1495.94,
+      "rmse": 1955.1,
+      "r2": -0.4508,
+      "mape": 11.16,
+      "count": 100,
+      "mean_price": 12450.55
+    },
+    "Wheat": {
+      "mae": 226.89,
+      "rmse": 282.5,
+      "r2": -0.5748,
+      "mape": 7.91,
+      "count": 101,
+      "mean_price": 3015.23
+    }
+  },
+  "prediction_interval": {
+    "residual_std": 865.4,
+    "margin_error_90": 1423.59,
+    "mean_absolute_error": 586.15
+  },
+  "supported_crops": [
+    "Cotton",
+    "Gram",
+    "Maize",
+    "Onion",
+    "Potato",
+    "Rice",
+    "Soybean",
+    "Tomato",
+    "Turmeric",
+    "Wheat"
+  ],
+  "supported_states": [
+    "Andhra Pradesh",
+    "Bihar",
+    "Gujarat",
+    "Haryana",
+    "Karnataka",
+    "Madhya Pradesh",
+    "Maharashtra",
+    "Punjab",
+    "Rajasthan",
+    "Tamil Nadu",
+    "Telangana",
+    "Uttar Pradesh",
+    "West Bengal"
+  ],
+  "supported_markets": [
+    "Adilabad",
+    "Agra",
+    "Alwar",
+    "Amritsar",
+    "Bathinda",
+    "Bengaluru",
+    "Bhopal",
+    "Bikaner",
+    "Burdwan",
+    "Chhindwara",
+    "Davanagere",
+    "Deesa",
+    "Duggirala",
+    "Erode",
+    "Gondal",
+    "Gulabbagh",
+    "Gundlupet",
+    "Hooghly",
+    "Indore",
+    "Jalandhar",
+    "Jalgaon",
+    "Kalaburagi",
+    "Kanpur",
+    "Karnal",
+    "Khanna",
+    "Kolar",
+    "Kota",
+    "Kurukshetra",
+    "Lasalgaon",
+    "Latur",
+    "Madanapalle",
+    "Meerut",
+    "Nagpur",
+    "Nizamabad",
+    "Pimpalgaon",
+    "Pune",
+    "Rajkot",
+    "Sangli",
+    "Shivpuri",
+    "Udaipur",
+    "Ujjain",
+    "Varanasi",
+    "Warangal"
+  ],
+  "market_hierarchy": {
+    "Cotton": {
+      "Telangana": {
+        "Adilabad": [
+          "Adilabad"
+        ]
+      },
+      "Punjab": {
+        "Bathinda": [
+          "Bathinda"
+        ]
+      },
+      "Gujarat": {
+        "Gondal": [
+          "Gondal"
+        ],
+        "Rajkot": [
+          "Rajkot"
+        ]
+      },
+      "Maharashtra": {
+        "Nagpur": [
+          "Nagpur"
+        ]
+      }
+    },
+    "Gram": {
+      "Madhya Pradesh": {
+        "Bhopal": [
+          "Bhopal"
+        ]
+      },
+      "Rajasthan": {
+        "Bikaner": [
+          "Bikaner"
+        ]
+      },
+      "Karnataka": {
+        "Gulbarga": [
+          "Kalaburagi"
+        ]
+      },
+      "Uttar Pradesh": {
+        "Kanpur": [
+          "Kanpur"
+        ]
+      },
+      "Maharashtra": {
+        "Latur": [
+          "Latur"
+        ]
+      }
+    },
+    "Maize": {
+      "Madhya Pradesh": {
+        "Chhindwara": [
+          "Chhindwara"
+        ]
+      },
+      "Karnataka": {
+        "Davanagere": [
+          "Davanagere"
+        ]
+      },
+      "Bihar": {
+        "Purnea": [
+          "Gulabbagh"
+        ]
+      },
+      "Maharashtra": {
+        "Sangli": [
+          "Sangli"
+        ]
+      },
+      "Rajasthan": {
+        "Udaipur": [
+          "Udaipur"
+        ]
+      }
+    },
+    "Onion": {
+      "Rajasthan": {
+        "Alwar": [
+          "Alwar"
+        ]
+      },
+      "Karnataka": {
+        "Bengaluru": [
+          "Bengaluru"
+        ]
+      },
+      "Madhya Pradesh": {
+        "Indore": [
+          "Indore"
+        ]
+      },
+      "Maharashtra": {
+        "Nashik": [
+          "Lasalgaon"
+        ],
+        "Pune": [
+          "Pune"
+        ]
+      }
+    },
+    "Potato": {
+      "Uttar Pradesh": {
+        "Agra": [
+          "Agra"
+        ]
+      },
+      "Gujarat": {
+        "Deesa": [
+          "Deesa"
+        ]
+      },
+      "West Bengal": {
+        "Hooghly": [
+          "Hooghly"
+        ]
+      },
+      "Madhya Pradesh": {
+        "Indore": [
+          "Indore"
+        ]
+      },
+      "Punjab": {
+        "Jalandhar": [
+          "Jalandhar"
+        ]
+      }
+    },
+    "Rice": {
+      "Punjab": {
+        "Amritsar": [
+          "Amritsar"
+        ]
+      },
+      "West Bengal": {
+        "Burdwan": [
+          "Burdwan"
+        ]
+      },
+      "Haryana": {
+        "Kurukshetra": [
+          "Kurukshetra"
+        ]
+      },
+      "Uttar Pradesh": {
+        "Meerut": [
+          "Meerut"
+        ]
+      },
+      "Telangana": {
+        "Warangal": [
+          "Warangal"
+        ]
+      }
+    },
+    "Soybean": {
+      "Madhya Pradesh": {
+        "Indore": [
+          "Indore"
+        ],
+        "Ujjain": [
+          "Ujjain"
+        ]
+      },
+      "Maharashtra": {
+        "Jalgaon": [
+          "Jalgaon"
+        ],
+        "Nagpur": [
+          "Nagpur"
+        ]
+      },
+      "Rajasthan": {
+        "Kota": [
+          "Kota"
+        ]
+      }
+    },
+    "Tomato": {
+      "Karnataka": {
+        "Kolar": [
+          "Kolar"
+        ]
+      },
+      "Andhra Pradesh": {
+        "Chittoor": [
+          "Madanapalle"
+        ]
+      },
+      "Maharashtra": {
+        "Nashik": [
+          "Pimpalgaon"
+        ]
+      },
+      "Madhya Pradesh": {
+        "Shivpuri": [
+          "Shivpuri"
+        ]
+      },
+      "Uttar Pradesh": {
+        "Varanasi": [
+          "Varanasi"
+        ]
+      }
+    },
+    "Turmeric": {
+      "Andhra Pradesh": {
+        "Guntur": [
+          "Duggirala"
+        ]
+      },
+      "Tamil Nadu": {
+        "Erode": [
+          "Erode"
+        ]
+      },
+      "Karnataka": {
+        "Chamarajanagar": [
+          "Gundlupet"
+        ]
+      },
+      "Telangana": {
+        "Nizamabad": [
+          "Nizamabad"
+        ]
+      },
+      "Maharashtra": {
+        "Sangli": [
+          "Sangli"
+        ]
+      }
+    },
+    "Wheat": {
+      "Uttar Pradesh": {
+        "Kanpur": [
+          "Kanpur"
+        ]
+      },
+      "Haryana": {
+        "Karnal": [
+          "Karnal"
+        ]
+      },
+      "Punjab": {
+        "Ludhiana": [
+          "Khanna"
+        ]
+      },
+      "Rajasthan": {
+        "Kota": [
+          "Kota"
+        ]
+      },
+      "Madhya Pradesh": {
+        "Ujjain": [
+          "Ujjain"
+        ]
+      }
+    }
+  },
+  "top_features": {
+    "Commodity_Turmeric": 2966.7414,
+    "Variety_Finger / Nizamabad": 2966.7414,
+    "Commodity_Maize": 1928.9282,
+    "Commodity_Cotton": 1597.1692,
+    "Variety_Medium / Long Staple": 1597.1692,
+    "Commodity_Potato": 1438.853,
+    "Variety_Jyoti / Kufri": 1438.853,
+    "Commodity_Soybean": 1382.7216,
+    "Commodity_Wheat": 987.7734,
+    "Variety_Lokwan / Sharbati": 987.7734,
+    "Commodity_Onion": 952.6803,
+    "Variety_Red / Nashik": 952.6803,
+    "Commodity_Tomato": 877.3241,
+    "Variety_Hybrid": 877.3241,
+    "Commodity_Gram": 692.4771
+  }
+}

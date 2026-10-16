@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv/
+
+# Streamlit
+.streamlit/secrets.toml
+
+# SQLite local database
+*.sqlite
+*.db
+
+# Model artifacts and checkpoints (optional keep trained default)
+# models/*.joblib
+# Keep default models in git if needed, or exclude custom checkpoints
+
+# Testing and coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# OS and IDE files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.log
