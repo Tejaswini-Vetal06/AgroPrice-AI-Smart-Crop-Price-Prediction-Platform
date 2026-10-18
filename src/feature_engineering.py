@@ -115,3 +115,4 @@ def prepare_training_data(df: pd.DataFrame) -> Tuple[pd.DataFrame, pd.Series]:
     y = featured_df["Modal_Price"].copy()
 
     return X, y
+

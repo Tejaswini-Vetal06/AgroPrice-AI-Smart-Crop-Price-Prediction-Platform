@@ -221,3 +221,4 @@ if top_features:
     )
     fig_feat.update_layout(get_plotly_layout("Top Model Predictors", height=380))
     st.plotly_chart(fig_feat, use_container_width=True)
+

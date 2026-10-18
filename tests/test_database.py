@@ -80,3 +80,4 @@ def test_delete_and_clear():
     # Clear remaining
     clear_all_predictions()
     assert get_prediction_count() == 0
+

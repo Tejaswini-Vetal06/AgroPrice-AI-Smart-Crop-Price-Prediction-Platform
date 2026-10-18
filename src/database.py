@@ -154,3 +154,4 @@ def get_prediction_count() -> int:
     count = cursor.fetchone()[0]
     conn.close()
     return count
+

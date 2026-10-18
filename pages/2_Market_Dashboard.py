@@ -246,3 +246,4 @@ if not latest_df.empty:
     )
 else:
     st.warning("No records found for the selected combination.")
+

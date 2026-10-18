@@ -61,3 +61,4 @@ def test_get_month_over_month_change(market_service):
     assert not mom.empty
     assert "MoM_Change_Pct" in mom.columns
     assert "YearMonth_Str" in mom.columns
+

@@ -14,6 +14,7 @@ from src.config import (
     COLOR_SAGE_GREEN,
     COLOR_SOFT_MINT,
     COLOR_WHITE,
+    COLOR_TEXT_MAIN,
     SUPPORTED_CROPS
 )
 from src.data_loader import get_cached_agricultural_data, DataLoader
@@ -102,9 +103,9 @@ st.markdown(
             </div>
             <div style="flex: 1 1 300px; text-align: center; background: rgba(255,255,255,0.06); padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.15);">
                 <div style="font-size: 3.5rem; margin-bottom: 0.5rem;">🚜📈</div>
-                <div style="color: #86A789; font-weight: 600; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em;">Benchmark Coverage</div>
-                <div style="color: #22C55E; font-size: 1.8rem; font-weight: 800; margin: 0.2rem 0;">10 Key Crops</div>
-                <div style="color: #F8FAFC; font-size: 0.85rem;">Wheat, Rice, Onion, Tomato, Potato, Cotton, Soybean, Maize, Turmeric, Gram</div>
+                <div style="color: #86A789; font-weight: 600; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em;">All-India Coverage</div>
+                <div style="color: #22C55E; font-size: 1.8rem; font-weight: 800; margin: 0.2rem 0;">21 Major Crops</div>
+                <div style="color: #F8FAFC; font-size: 0.85rem;">Wheat, Rice, Onion, Tomato, Potato, Cotton, Soybean, Mustard, Gram, Maize, Spices & Fruits</div>
             </div>
         </div>
     </div>
@@ -245,12 +246,12 @@ with fcol1:
     st.markdown(
         f"""
         <div class="agro-card">
-            <h4 style="color: {COLOR_FOREST_GREEN} !important;">🔮 Crop Price Prediction</h4>
+            <h4 style="color: {COLOR_TEXT_MAIN} !important;">🔮 Crop Price Prediction</h4>
             <p style="color: #475569; font-size: 0.92rem;">
                 Enter crop, market, and selling month to receive estimated modal prices with 90% confidence bands based on validated historical patterns.
             </p>
             <hr style="border: 0; border-top: 1px solid {COLOR_SOFT_MINT}; margin: 0.8rem 0;">
-            <h4 style="color: {COLOR_FOREST_GREEN} !important;">📊 Market Price Dashboard</h4>
+            <h4 style="color: {COLOR_TEXT_MAIN} !important;">📊 Market Price Dashboard</h4>
             <p style="color: #475569; font-size: 0.92rem;">
                 Browse latest mandi records, minimum/maximum/modal prices, filter by state and district, or upload custom agricultural CSV callsets.
             </p>
@@ -263,12 +264,12 @@ with fcol2:
     st.markdown(
         f"""
         <div class="agro-card">
-            <h4 style="color: {COLOR_FOREST_GREEN} !important;">📈 Crop Insights & Seasonality</h4>
+            <h4 style="color: {COLOR_TEXT_MAIN} !important;">📈 Crop Insights & Seasonality</h4>
             <p style="color: #475569; font-size: 0.92rem;">
                 Understand multi-year seasonal price cycles, harvest supply influxes, and month-over-month percentage changes with interactive charts.
             </p>
             <hr style="border: 0; border-top: 1px solid {COLOR_SOFT_MINT}; margin: 0.8rem 0;">
-            <h4 style="color: {COLOR_FOREST_GREEN} !important;">⚖️ Compare Mandis</h4>
+            <h4 style="color: {COLOR_TEXT_MAIN} !important;">⚖️ Compare Mandis</h4>
             <p style="color: #475569; font-size: 0.92rem;">
                 Compare prices across multiple trading centers side-by-side with objective reminders regarding transportation and market handling costs.
             </p>
@@ -303,3 +304,4 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
+

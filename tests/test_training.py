@@ -69,3 +69,4 @@ def test_trained_model_and_metadata_exist():
     assert len(metadata["supported_crops"]) >= 10
     assert "prediction_interval" in metadata
     assert "margin_error_90" in metadata["prediction_interval"]
+

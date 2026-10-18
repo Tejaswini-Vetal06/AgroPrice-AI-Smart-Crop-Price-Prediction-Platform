@@ -155,3 +155,4 @@ else:
             clear_all_predictions()
             st.success("All prediction history cleared.")
             st.rerun()
+

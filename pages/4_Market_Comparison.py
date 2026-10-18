@@ -174,3 +174,4 @@ comp_display = comp_df.rename(columns={
     "Max_Observed": "Max Observed (₹)"
 })
 st.dataframe(comp_display, use_container_width=True, hide_index=True)
+

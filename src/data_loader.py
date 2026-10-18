@@ -91,3 +91,4 @@ def get_cached_agricultural_data() -> pd.DataFrame:
     """Streamlit cached loader for fast web app responsiveness."""
     loader = DataLoader()
     return loader.load_default_data()
+

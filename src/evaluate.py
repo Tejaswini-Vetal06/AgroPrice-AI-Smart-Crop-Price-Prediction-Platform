@@ -69,3 +69,4 @@ def compute_prediction_interval(
 
     margin_error = round(z * residual_std, 2)
     return round(residual_std, 2), margin_error, round(mae, 2)
+

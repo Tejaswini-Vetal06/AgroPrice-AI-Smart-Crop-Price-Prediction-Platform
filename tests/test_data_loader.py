@@ -71,3 +71,4 @@ def test_nonexistent_dataset_handling():
     loader = DataLoader(default_path="nonexistent_folder/missing_file.csv")
     with pytest.raises(FileNotFoundError):
         loader.load_default_data()
+

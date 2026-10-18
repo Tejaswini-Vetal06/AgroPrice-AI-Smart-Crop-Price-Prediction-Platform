@@ -33,7 +33,37 @@ COMMODITY_ALIASES: Dict[str, str] = {
     "gram": "Gram",
     "chana": "Gram",
     "gram raw(chana)": "Gram",
-    "bengal gram": "Gram"
+    "bengal gram": "Gram",
+    "mustard": "Mustard",
+    "sarson": "Mustard",
+    "rai": "Mustard",
+    "rapeseed": "Mustard",
+    "groundnut": "Groundnut",
+    "mungfali": "Groundnut",
+    "peanut": "Groundnut",
+    "bajra": "Bajra",
+    "pearl millet": "Bajra",
+    "jowar": "Jowar",
+    "sorghum": "Jowar",
+    "moong": "Moong",
+    "green gram": "Moong",
+    "moong(green gram)": "Moong",
+    "arhar": "Arhar",
+    "tur": "Arhar",
+    "red gram": "Arhar",
+    "arhar (tur/red gram)": "Arhar",
+    "chilli": "Chilli",
+    "red chilli": "Chilli",
+    "green chilli": "Chilli",
+    "mirchi": "Chilli",
+    "garlic": "Garlic",
+    "lahsun": "Garlic",
+    "ginger": "Ginger",
+    "adrak": "Ginger",
+    "apple": "Apple",
+    "seb": "Apple",
+    "banana": "Banana",
+    "kela": "Banana"
 }
 
 REQUIRED_COLUMNS = [
@@ -131,7 +161,7 @@ def clean_agricultural_data(df: pd.DataFrame) -> pd.DataFrame:
     df_clean["Arrival_Date"] = pd.to_datetime(
         df_clean["Arrival_Date"],
         errors="coerce",
-        dayfirst=True
+        format="mixed"
     )
     df_clean = df_clean.dropna(subset=["Arrival_Date"])
 
@@ -190,3 +220,4 @@ def clean_agricultural_data(df: pd.DataFrame) -> pd.DataFrame:
     df_clean = df_clean.sort_values(by=["Arrival_Date", "Commodity", "Market"]).reset_index(drop=True)
 
     return df_clean
+

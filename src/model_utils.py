@@ -39,3 +39,4 @@ def load_model_metadata(metadata_path: Optional[Path] = None) -> Dict[str, Any]:
 def is_model_ready() -> bool:
     """Checks if the trained pipeline and metadata are ready on disk."""
     return DEFAULT_MODEL_PATH.exists() and METADATA_PATH.exists()
+

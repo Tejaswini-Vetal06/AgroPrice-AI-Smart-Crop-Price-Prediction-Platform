@@ -122,3 +122,4 @@ def test_preprocessor_transformation():
     assert X_trans.shape[0] == 2
     assert X_trans.shape[1] > 5
     assert not np.isnan(X_trans).any()
+

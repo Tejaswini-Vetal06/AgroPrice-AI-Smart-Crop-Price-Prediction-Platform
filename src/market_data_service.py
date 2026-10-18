@@ -156,3 +156,4 @@ class MarketDataService:
         monthly["MoM_Diff_Rupees"] = (monthly["Modal_Price"].diff()).round(2)
 
         return monthly.sort_values(by="YearMonth").reset_index(drop=True)
+
