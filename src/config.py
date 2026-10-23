@@ -7,6 +7,17 @@ from pathlib import Path
 import plotly.graph_objects as go
 import streamlit as st
 
+from src.translations import (
+    SUPPORTED_LANGUAGES,
+    TRANSLATIONS,
+    CROP_TRANSLATIONS,
+    get_current_language,
+    set_language,
+    t,
+    get_crop_name,
+    render_language_selector
+)
+
 # ---------------------------------------------------------
 # Project Paths
 # ---------------------------------------------------------
@@ -43,6 +54,8 @@ COLOR_TEXT_MUTED = "#475569"
 COLOR_BORDER = "#DCFCE7"
 COLOR_BORDER_SUBTLE = "#E2E8F0"
 COLOR_DANGER = "#EF4444"
+COLOR_GOLD_ACCENT = "#F59E0B"    # Warm golden amber for title accents and high-priority badges
+COLOR_GOLD_LIGHT = "#FEF3C7"     # Subtle gold tint for callouts
 
 # ---------------------------------------------------------
 # Domain Constants: All-India Agricultural Market
@@ -239,11 +252,42 @@ def apply_custom_theme():
     .agro-card-dark h2,
     .agro-card-dark h3,
     .agro-card-dark h4,
+    .agro-hero-banner,
+    .agro-hero-banner h1,
+    .agro-hero-banner h2,
+    .agro-hero-banner h3,
+    .agro-hero-banner h4,
     [style*="linear-gradient"] h1,
     [style*="linear-gradient"] h2,
     [style*="linear-gradient"] h3,
     [style*="linear-gradient"] h4 {{
         color: #FFFFFF !important;
+    }}
+
+    .agro-hero-banner {{
+        background: linear-gradient(135deg, #064E3B 0%, #065F46 45%, #047857 100%);
+        color: #FFFFFF;
+        padding: 2.2rem 2rem;
+        border-radius: 16px;
+        box-shadow: 0 10px 25px -5px rgba(6, 78, 59, 0.28);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        margin-bottom: 1.5rem;
+    }}
+
+    .agro-title-gold {{
+        color: #FBBF24 !important;
+    }}
+
+    .agro-badge-gold {{
+        display: inline-block;
+        padding: 0.25rem 0.75rem;
+        border-radius: 9999px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        background-color: #FEF3C7;
+        color: #92400E;
+        border: 1px solid #FCD34D;
+        letter-spacing: 0.03em;
     }}
 
     /* Buttons */
