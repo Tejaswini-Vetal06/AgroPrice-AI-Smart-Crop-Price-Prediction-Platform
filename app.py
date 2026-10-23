@@ -15,7 +15,12 @@ from src.config import (
     COLOR_SOFT_MINT,
     COLOR_WHITE,
     COLOR_TEXT_MAIN,
-    SUPPORTED_CROPS
+    COLOR_GOLD_ACCENT,
+    COLOR_GOLD_LIGHT,
+    SUPPORTED_CROPS,
+    t,
+    get_crop_name,
+    render_language_selector
 )
 from src.data_loader import get_cached_agricultural_data, DataLoader
 from src.model_utils import is_model_ready, load_model_metadata
@@ -46,28 +51,34 @@ metadata = load_model_metadata() if model_ready else {}
 
 # Sidebar Navigation & Platform Status
 with st.sidebar:
+    # Language Selector Card
+    render_language_selector()
+    st.markdown("---")
+
     st.markdown(
         f"""
-        <div style="text-align: center; padding: 1rem 0;">
+        <div style="text-align: center; padding: 0.5rem 0 1rem 0;">
             <div style="font-size: 2.8rem; line-height: 1;">🌾</div>
-            <h2 style="color: #FFFFFF !important; margin: 0.5rem 0 0.2rem 0; font-size: 1.5rem; font-weight: 800;">AgroPrice AI</h2>
-            <p style="color: #BBF7D0 !important; font-size: 0.85rem; margin: 0;">Smart Indian Mandi Price Intelligence</p>
+            <h2 style="color: #FFFFFF !important; margin: 0.4rem 0 0.1rem 0; font-size: 1.5rem; font-weight: 800;">
+                AgroPrice <span style="color: #FBBF24;">AI</span>
+            </h2>
+            <p style="color: #BBF7D0 !important; font-size: 0.82rem; margin: 0;">{t('app_tagline')}</p>
         </div>
         """,
         unsafe_allow_html=True
     )
     st.markdown("---")
 
-    st.markdown("### 📊 Platform Status")
+    st.markdown(f"### 📊 {t('platform_status')}")
     st.markdown(
         f"""
         <div style="background: rgba(255,255,255,0.08); padding: 0.8rem; border-radius: 8px; font-size: 0.85rem;">
-            <div><b>ML Model:</b> {'Active (Trained)' if model_ready else 'Pending Training'}</div>
+            <div><b>{t('status_model')}:</b> {'Active (Trained)' if model_ready else 'Pending Training'}</div>
             <div><b>Algorithm:</b> {metadata.get('champion_model', 'Ridge / Tree Pipeline')}</div>
-            <div><b>Commodities:</b> {summary.get('crop_count', 10)} Crops</div>
-            <div><b>Mandis:</b> {summary.get('market_count', 40)}+ Centers</div>
+            <div><b>{t('status_crops')}:</b> {summary.get('crop_count', 10)} Crops</div>
+            <div><b>{t('status_mandis')}:</b> {summary.get('market_count', 40)}+ Centers</div>
             <div><b>Data Range:</b> {summary.get('start_date', '2021')} - {summary.get('end_date', '2025')}</div>
-            <div><b>Currency:</b> Indian Rupee (₹/Quintal)</div>
+            <div><b>{t('status_currency')}</b></div>
         </div>
         """,
         unsafe_allow_html=True
@@ -88,24 +99,29 @@ with st.sidebar:
 # Hero Section
 st.markdown(
     f"""
-    <div class="agro-card" style="background: linear-gradient(135deg, {COLOR_FOREST_GREEN} 0%, #1e3a29 100%); color: white; padding: 2.5rem 2rem; border-radius: 16px; border: none; box-shadow: 0 10px 25px -5px rgba(20, 83, 45, 0.25);">
-        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;">
-            <div style="flex: 1 1 550px; padding-right: 1.5rem;">
-                <span class="agro-badge" style="background-color: #22C55E; color: #FFFFFF; border: none; margin-bottom: 0.75rem;">
-                    🌱 AI FOR INDIAN FARMERS & TRADERS
+    <div class="agro-hero-banner">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1.5rem;">
+            <div style="flex: 1 1 520px; padding-right: 1rem;">
+                <span class="agro-badge-gold">
+                    🇮🇳 {t('hero_badge')}
                 </span>
-                <h1 style="color: #FFFFFF !important; font-size: 2.4rem; font-weight: 800; line-height: 1.2; margin: 0.5rem 0 1rem 0;">
-                    Empowering Indian Agriculture with Data-Driven Crop Price Intelligence
+                <h1 style="color: #FFFFFF !important; font-size: 2.3rem; font-weight: 800; line-height: 1.25; margin: 0.75rem 0 0.6rem 0;">
+                    🌾 AgroPrice <span style="color: #FBBF24;">AI</span> — {t('hero_title')}
                 </h1>
-                <p style="color: #E2E8F0; font-size: 1.05rem; line-height: 1.6; margin-bottom: 1.5rem;">
-                    AgroPrice AI analyzes historical Agmarknet mandi trends, cyclical harvest seasons, and market arrival dynamics across India to help farmers, agri-traders, and students forecast crop prices in <b>₹ per quintal</b>.
+                <p style="color: #ECFDF5; font-size: 1.05rem; line-height: 1.6; margin-bottom: 1.25rem;">
+                    {t('hero_desc')}
                 </p>
+                <div style="display: flex; gap: 0.6rem; flex-wrap: wrap;">
+                    <span style="background: rgba(255,255,255,0.15); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.82rem; color: #FFFFFF; font-weight: 600;">🌾 21 Major Crops</span>
+                    <span style="background: rgba(255,255,255,0.15); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.82rem; color: #FFFFFF; font-weight: 600;">🏪 40+ APMC Mandis</span>
+                    <span style="background: rgba(255,255,255,0.15); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.82rem; color: #FFFFFF; font-weight: 600;">🌐 9 Indian Languages</span>
+                </div>
             </div>
-            <div style="flex: 1 1 300px; text-align: center; background: rgba(255,255,255,0.06); padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.15);">
-                <div style="font-size: 3.5rem; margin-bottom: 0.5rem;">🚜📈</div>
-                <div style="color: #86A789; font-weight: 600; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em;">All-India Coverage</div>
-                <div style="color: #22C55E; font-size: 1.8rem; font-weight: 800; margin: 0.2rem 0;">21 Major Crops</div>
-                <div style="color: #F8FAFC; font-size: 0.85rem;">Wheat, Rice, Onion, Tomato, Potato, Cotton, Soybean, Mustard, Gram, Maize, Spices & Fruits</div>
+            <div style="flex: 1 1 280px; text-align: center; background: rgba(255,255,255,0.12); backdrop-filter: blur(8px); padding: 1.4rem; border-radius: 14px; border: 1px solid rgba(255,255,255,0.22); box-shadow: 0 8px 20px -4px rgba(0,0,0,0.15);">
+                <div style="font-size: 3.2rem; line-height: 1; margin-bottom: 0.4rem;">🚜📈</div>
+                <div style="color: #FDE68A; font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em;">All-India Coverage</div>
+                <div style="color: #FFFFFF; font-size: 1.7rem; font-weight: 800; margin: 0.2rem 0;">21 Major Crops</div>
+                <div style="color: #E2E8F0; font-size: 0.82rem; line-height: 1.4;">Wheat, Rice, Onion, Tomato, Potato, Cotton, Soybean, Mustard, Gram & More</div>
             </div>
         </div>
     </div>
@@ -117,19 +133,19 @@ st.markdown(
 col_btn1, col_btn2, col_btn3, col_btn4 = st.columns(4)
 
 with col_btn1:
-    if st.button("🔮 Predict Crop Price", use_container_width=True):
+    if st.button(t("btn_predict"), use_container_width=True):
         st.switch_page("pages/1_Crop_Prediction.py")
 
 with col_btn2:
-    if st.button("📊 Market Dashboard", use_container_width=True):
+    if st.button(t("btn_dashboard"), use_container_width=True):
         st.switch_page("pages/2_Market_Dashboard.py")
 
 with col_btn3:
-    if st.button("📈 Crop Insights", use_container_width=True):
+    if st.button(t("btn_insights"), use_container_width=True):
         st.switch_page("pages/3_Crop_Insights.py")
 
 with col_btn4:
-    if st.button("⚖️ Compare Mandis", use_container_width=True):
+    if st.button(t("btn_compare"), use_container_width=True):
         st.switch_page("pages/4_Market_Comparison.py")
 
 st.markdown("<br>", unsafe_allow_html=True)
@@ -189,7 +205,7 @@ with mcol4:
 st.markdown("<br>", unsafe_allow_html=True)
 
 # How It Works Section
-st.markdown("### 🧭 How AgroPrice AI Works")
+st.markdown(f"### {t('how_it_works_title')}")
 
 hcol1, hcol2, hcol3 = st.columns(3)
 
@@ -198,9 +214,9 @@ with hcol1:
         f"""
         <div class="agro-card" style="height: 100%;">
             <div style="font-size: 2.2rem; margin-bottom: 0.5rem;">1️⃣</div>
-            <h4 style="margin: 0.2rem 0 0.5rem 0;">Select Crop & Mandi</h4>
+            <h4 style="margin: 0.2rem 0 0.5rem 0; color: {COLOR_TEXT_MAIN} !important;">{t('step1_title')}</h4>
             <p style="color: #475569; font-size: 0.92rem; line-height: 1.5;">
-                Choose from staple crops like Wheat, Rice, Onion, Tomato, Potato, and Cotton. Select your state, district, and target agricultural market.
+                {t('step1_desc')}
             </p>
         </div>
         """,
@@ -212,9 +228,9 @@ with hcol2:
         f"""
         <div class="agro-card" style="height: 100%;">
             <div style="font-size: 2.2rem; margin-bottom: 0.5rem;">2️⃣</div>
-            <h4 style="margin: 0.2rem 0 0.5rem 0;">Choose Selling Month</h4>
+            <h4 style="margin: 0.2rem 0 0.5rem 0; color: {COLOR_TEXT_MAIN} !important;">{t('step2_title')}</h4>
             <p style="color: #475569; font-size: 0.92rem; line-height: 1.5;">
-                Select your intended harvest or selling month. The system maps cyclical seasons (Kharif, Rabi, Zaid) and past arrival price pressures.
+                {t('step2_desc')}
             </p>
         </div>
         """,
@@ -226,9 +242,9 @@ with hcol3:
         f"""
         <div class="agro-card" style="height: 100%;">
             <div style="font-size: 2.2rem; margin-bottom: 0.5rem;">3️⃣</div>
-            <h4 style="margin: 0.2rem 0 0.5rem 0;">Get Price Estimate & Bounds</h4>
+            <h4 style="margin: 0.2rem 0 0.5rem 0; color: {COLOR_TEXT_MAIN} !important;">{t('step3_title')}</h4>
             <p style="color: #475569; font-size: 0.92rem; line-height: 1.5;">
-                The ML model computes an estimated modal price in <b>₹/quintal</b> with an empirical uncertainty range and recent historical context.
+                {t('step3_desc')}
             </p>
         </div>
         """,
@@ -238,7 +254,7 @@ with hcol3:
 st.markdown("<br>", unsafe_allow_html=True)
 
 # Platform Feature Cards
-st.markdown("### 🛠️ Core Capabilities")
+st.markdown(f"### 🛠️ {t('app_name')} — Features")
 
 fcol1, fcol2 = st.columns(2)
 
@@ -246,12 +262,12 @@ with fcol1:
     st.markdown(
         f"""
         <div class="agro-card">
-            <h4 style="color: {COLOR_TEXT_MAIN} !important;">🔮 Crop Price Prediction</h4>
+            <h4 style="color: {COLOR_TEXT_MAIN} !important;">{t('btn_predict')}</h4>
             <p style="color: #475569; font-size: 0.92rem;">
                 Enter crop, market, and selling month to receive estimated modal prices with 90% confidence bands based on validated historical patterns.
             </p>
             <hr style="border: 0; border-top: 1px solid {COLOR_SOFT_MINT}; margin: 0.8rem 0;">
-            <h4 style="color: {COLOR_TEXT_MAIN} !important;">📊 Market Price Dashboard</h4>
+            <h4 style="color: {COLOR_TEXT_MAIN} !important;">{t('btn_dashboard')}</h4>
             <p style="color: #475569; font-size: 0.92rem;">
                 Browse latest mandi records, minimum/maximum/modal prices, filter by state and district, or upload custom agricultural CSV callsets.
             </p>
@@ -264,12 +280,12 @@ with fcol2:
     st.markdown(
         f"""
         <div class="agro-card">
-            <h4 style="color: {COLOR_TEXT_MAIN} !important;">📈 Crop Insights & Seasonality</h4>
+            <h4 style="color: {COLOR_TEXT_MAIN} !important;">{t('btn_insights')}</h4>
             <p style="color: #475569; font-size: 0.92rem;">
                 Understand multi-year seasonal price cycles, harvest supply influxes, and month-over-month percentage changes with interactive charts.
             </p>
             <hr style="border: 0; border-top: 1px solid {COLOR_SOFT_MINT}; margin: 0.8rem 0;">
-            <h4 style="color: {COLOR_TEXT_MAIN} !important;">⚖️ Compare Mandis</h4>
+            <h4 style="color: {COLOR_TEXT_MAIN} !important;">{t('btn_compare')}</h4>
             <p style="color: #475569; font-size: 0.92rem;">
                 Compare prices across multiple trading centers side-by-side with objective reminders regarding transportation and market handling costs.
             </p>
@@ -283,12 +299,10 @@ st.markdown(
     f"""
     <div style="background-color: #FEF3C7; border: 1px solid #FDE68A; border-left: 5px solid #D97706; padding: 1.25rem; border-radius: 8px; margin-top: 1.5rem;">
         <h4 style="color: #92400E !important; margin: 0 0 0.4rem 0; font-size: 1rem;">
-            ⚠️ Agricultural Advisory & Price Estimation Notice
+            {t('disclaimer_title')}
         </h4>
         <p style="color: #78350F; font-size: 0.88rem; margin: 0; line-height: 1.5;">
-            <b>AgroPrice AI provides statistical price estimates</b> based on historical Agmarknet market records and machine learning algorithms. 
-            Agricultural prices in India are heavily influenced by real-time factors including monsoon patterns, unseasonal rainfall, export/import policies, transportation strikes, pest attacks, and mandi arrival volumes. 
-            Predictions are not guaranteed selling prices. Farmers and traders should consult local mandi officials and agricultural extension officers before making financial commitments.
+            {t('disclaimer_desc')}
         </p>
     </div>
     """,
