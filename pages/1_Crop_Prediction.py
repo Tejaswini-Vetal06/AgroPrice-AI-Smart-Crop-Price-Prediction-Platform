@@ -19,9 +19,14 @@ from src.config import (
     COLOR_SOFT_MINT,
     COLOR_WHITE,
     COLOR_TEXT_MAIN,
+    COLOR_GOLD_ACCENT,
+    COLOR_GOLD_LIGHT,
     MONTH_NAMES,
     SEASONS,
-    CROP_HINDI_NAMES
+    CROP_HINDI_NAMES,
+    t,
+    get_crop_name,
+    render_language_selector
 )
 from src.data_loader import get_cached_agricultural_data
 from src.model_utils import is_model_ready, load_model_metadata
@@ -37,16 +42,23 @@ st.set_page_config(
 
 apply_custom_theme()
 
-# Header with Hindi / English Bilingual Context
+# Sidebar Language Selector
+with st.sidebar:
+    render_language_selector()
+    st.markdown("---")
+
+# Header with Vibrant Theme and Selected Language
 st.markdown(
     f"""
-    <div style="margin-bottom: 1.25rem;">
-        <span class="agro-badge">🇮🇳 अखिल भारतीय किसान सेवा / ALL-INDIA FARMER SERVICE</span>
-        <h2 style="margin: 0.4rem 0 0.2rem 0; color: {COLOR_TEXT_MAIN} !important;">
-            🔮 फसल भाव भविष्यवाणी एवं मूल्य पूर्वानुमान (Crop Price Forecasting)
-        </h2>
-        <p style="color: #475569; font-size: 0.95rem; margin: 0;">
-            आगामी महीनों के संभावित मंडी भाव (₹ प्रति क्विंटल) जानें, सही समय पर फसल बेचने का निर्णय लें और भंडारण लाभ का विश्लेषण करें।
+    <div style="background: linear-gradient(135deg, #064E3B 0%, #065F46 45%, #047857 100%); padding: 1.5rem 1.8rem; border-radius: 14px; color: white; margin-bottom: 1.5rem; box-shadow: 0 4px 15px -3px rgba(6, 78, 59, 0.25); border: 1px solid rgba(255, 255, 255, 0.15);">
+        <span style="background-color: #FEF3C7; color: #92400E; font-size: 0.78rem; font-weight: 700; padding: 0.25rem 0.7rem; border-radius: 9999px; text-transform: uppercase; letter-spacing: 0.04em;">
+            🇮🇳 {t('badge_service')}
+        </span>
+        <h1 style="color: #FFFFFF !important; font-size: 2rem; font-weight: 800; margin: 0.6rem 0 0.25rem 0;">
+            🔮 <span style="color: #FBBF24;">{t('page1_title')}</span>
+        </h1>
+        <p style="color: #ECFDF5; font-size: 0.98rem; margin: 0; line-height: 1.5;">
+            {t('page1_subtitle')}
         </p>
     </div>
     """,
@@ -66,15 +78,15 @@ raw_data = get_cached_agricultural_data()
 market_service = MarketDataService(raw_data)
 
 # Sidebar / Top Parameters Form
-st.markdown("### 🌾 1. चयन करें (Select Crop & Mandi Location)")
+st.markdown(f"### {t('select_section_title')}")
 
 col_p1, col_p2, col_p3, col_p4 = st.columns(4)
 
 with col_p1:
-    # Display formatted bilingual crop options
-    crop_display_options = {c: CROP_HINDI_NAMES.get(c, c) for c in supported_crops}
+    # Display formatted multilingual crop options
+    crop_display_options = {c: get_crop_name(c) for c in supported_crops}
     selected_crop = st.selectbox(
-        "फसल चुनें (Select Crop) 🌱",
+        t("lbl_crop"),
         options=supported_crops,
         format_func=lambda x: crop_display_options.get(x, x),
         index=0
@@ -85,7 +97,7 @@ with col_p2:
     if not avail_states:
         avail_states = ["All States"]
     selected_state = st.selectbox(
-        "राज्य चुनें (Select State) 📍",
+        t("lbl_state"),
         options=avail_states,
         index=0
     )
@@ -95,7 +107,7 @@ with col_p3:
     if not avail_districts:
         avail_districts = ["All Districts"]
     selected_district = st.selectbox(
-        "ज़िला चुनें (Select District) 🏛️",
+        t("lbl_district"),
         options=avail_districts,
         index=0
     )
@@ -105,7 +117,7 @@ with col_p4:
     if not avail_markets:
         avail_markets = ["Standard Mandi"]
     selected_market = st.selectbox(
-        "मंडी चुनें (Select APMC Mandi) 🏪",
+        t("lbl_market"),
         options=avail_markets,
         index=0
     )
@@ -116,28 +128,28 @@ current_month = datetime.now().month
 
 # Tabs for Prediction vs. Multi-Month Forward Forecasting
 tab_predict, tab_forecast, tab_storage = st.tabs([
-    "🎯 एकल माह मूल्य अनुमान (Target Month Prediction)",
-    "📈 6-12 माह मूल्य पूर्वानुमान (Forward Price Curve)",
-    "📦 भंडारण लाभ कैलकुलेटर (Sell Now vs. Store Advisory)"
+    t("tab1_name"),
+    t("tab2_name"),
+    t("tab3_name")
 ])
 
 # -------------------------------------------------------------
 # TAB 1: TARGET MONTH PREDICTION
 # -------------------------------------------------------------
 with tab_predict:
-    st.markdown("#### 🎯 लक्षित माह का अनुमानित मंडी भाव (Single Month Estimate)")
+    st.markdown(f"#### {t('tab1_name')}")
     
     col_t1, col_t2, col_t3 = st.columns([1, 1, 2])
     with col_t1:
-        sel_month_name = st.selectbox("बिक्री माह (Selling Month) 📅", options=MONTH_NAMES, index=(current_month + 1) % 12)
+        sel_month_name = st.selectbox(t("lbl_month"), options=MONTH_NAMES, index=(current_month + 1) % 12)
         sel_month = MONTH_NAMES.index(sel_month_name) + 1
     with col_t2:
-        sel_year = st.selectbox("बिक्री वर्ष (Selling Year) 🗓️", options=[current_year, current_year + 1, current_year + 2], index=0)
+        sel_year = st.selectbox(t("lbl_year"), options=[current_year, current_year + 1, current_year + 2], index=0)
     with col_t3:
         variety_options = ["Standard", "Deshi / Local", "Hybrid", "Lokwan / Sharbati", "Jyoti / Kufri", "Yellow"]
-        sel_variety = st.selectbox("किस्म / ग्रेड (Variety/Grade)", options=variety_options, index=0)
+        sel_variety = st.selectbox(t("lbl_variety"), options=variety_options, index=0)
 
-    if st.button("🚀 अनुमानित भाव देखें (Calculate Price Estimate)", key="btn_single_pred"):
+    if st.button(t("btn_calc_single"), key="btn_single_pred"):
         with st.spinner("Analyzing all-India Agmarknet records..."):
             res = pred_service.predict_crop_price(
                 crop=selected_crop,
@@ -163,31 +175,31 @@ with tab_predict:
                 <div class="agro-card" style="border-top: 5px solid {COLOR_FRESH_GREEN}; margin-top: 1rem;">
                     <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
                         <div>
-                            <span class="agro-badge">AI ESTIMATE / एआई अनुमान</span>
+                            <span class="agro-badge-gold">⚡ {t('ai_estimate_badge')}</span>
                             <h3 style="margin: 0.3rem 0; color: {COLOR_TEXT_MAIN} !important;">
-                                {res['crop_hindi']} ({res['crop']}) — {res['market']} Mandi
+                                {get_crop_name(res['crop'])} — {res['market']} Mandi
                             </h3>
                             <div style="color: #64748B; font-size: 0.88rem;">
-                                राज्य: {res['state']} &bull; ज़िला: {res['district']} &bull; लक्षित समय: <b>{res['month_name']} {res['year']}</b> ({res['season']} मौसम)
+                                {res['state']} &bull; {res['district']} &bull; <b>{res['month_name']} {res['year']}</b> ({res['season']})
                             </div>
                         </div>
                         <div style="text-align: right; padding: 0.5rem 0;">
                             <div style="font-size: 2.6rem; font-weight: 800; color: {COLOR_FOREST_GREEN};">
                                 ₹ {p_price:,.2f}
                             </div>
-                            <div style="font-size: 0.95rem; color: #64748B; font-weight: 600;">प्रति क्विंटल (Per 100 kg)</div>
+                            <div style="font-size: 0.95rem; color: #64748B; font-weight: 600;">{t('per_quintal')}</div>
                         </div>
                     </div>
                     
                     <div style="background-color: {COLOR_SOFT_MINT}; border: 1px solid #BBF7D0; border-radius: 8px; padding: 0.9rem 1.2rem; margin: 1rem 0;">
                         <div style="color: {COLOR_FOREST_GREEN}; font-weight: 700; font-size: 0.95rem;">
-                            📊 संभावित मूल्य सीमा (90% Confidence Interval):
+                            {t('expected_range')}
                         </div>
                         <div style="color: {COLOR_TEXT_MAIN}; font-size: 1.25rem; font-weight: 800; margin-top: 0.2rem;">
                             ₹ {p_low:,.2f} &nbsp;—&nbsp; ₹ {p_high:,.2f}
                         </div>
                         <div style="color: #64748B; font-size: 0.82rem; margin-top: 0.2rem;">
-                            (मंडी आवक और मौसमी उतार-चढ़ाव के आधार पर अनुमानित प्रसार: ± ₹{margin:,.2f})
+                            (± ₹{margin:,.2f})
                         </div>
                     </div>
                 </div>
@@ -205,7 +217,7 @@ with tab_predict:
                 
                 banner_bg = "#DCFCE7" if is_above else "#FEF3C7"
                 banner_border = "#22C55E" if is_above else "#F59E0B"
-                badge_text = "MSP से अधिक (Above MSP)" if is_above else "MSP अलर्ट (Near / Below MSP)"
+                badge_text = "Above MSP" if is_above else "Near / Below MSP"
 
                 st.markdown(
                     f"""
@@ -213,11 +225,22 @@ with tab_predict:
                         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
                             <div>
                                 <b style="color: {COLOR_FOREST_GREEN}; font-size: 0.95rem;">
-                                    🏛️ सरकारी न्यूनतम समर्थन मूल्य (Govt MSP Benchmark): ₹ {msp_val:,.2f} / क्विंटल
+                                    {t('msp_benchmark_title')} ₹ {msp_val:,.2f} / quintal
                                 </b>
                                 <div style="color: #334155; font-size: 0.88rem; margin-top: 0.2rem;">
                                     {msp_data['guidance']}
                                 </div>
+                            </div>
+                            <div style="margin-top: 0.4rem;">
+                                <span class="agro-badge" style="background: {'#16A34A' if is_above else '#D97706'}; color: white; border: none;">
+                                    {badge_text}: {'+' if diff_val >= 0 else ''}₹{diff_val:,.2f} ({diff_pct}%)
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    """,
+                    unsafe_allow_html=True
+                )
                             </div>
                             <div style="margin-top: 0.4rem;">
                                 <span class="agro-badge" style="background: {'#16A34A' if is_above else '#D97706'}; color: white; border: none;">
@@ -298,16 +321,16 @@ with tab_forecast:
                     f"""
                     <div class="agro-card" style="border-left: 5px solid {COLOR_FRESH_GREEN};">
                         <span class="agro-badge" style="background-color: #22C55E; color: white; border: none;">
-                            🏆 सर्वोत्तम बिक्री समय (BEST MONTH TO SELL)
+                            🏆 {t('best_month_to_sell')}
                         </span>
                         <h3 style="margin: 0.4rem 0 0.1rem 0; color: {COLOR_TEXT_MAIN} !important;">
                             {peak_m}
                         </h3>
                         <div style="font-size: 1.8rem; font-weight: 800; color: #16A34A;">
-                            ₹ {peak_p:,.2f} <span style="font-size: 0.9rem; color: #64748B;">/ क्विंटल</span>
+                            ₹ {peak_p:,.2f} <span style="font-size: 0.9rem; color: #64748B;">/ quintal</span>
                         </div>
                         <div style="color: #475569; font-size: 0.85rem; margin-top: 0.3rem;">
-                            प्रारंभिक महीने से संभावित बढ़त: <b>+{peak_gain_pct}% (+₹{peak_gain:,.2f})</b>
+                            Expected Gain: <b>+{peak_gain_pct}% (+₹{peak_gain:,.2f})</b>
                         </div>
                     </div>
                     """,
@@ -319,7 +342,7 @@ with tab_forecast:
                     f"""
                     <div class="agro-card" style="border-left: 5px solid #0284C7;">
                         <span class="agro-badge" style="background-color: #0284C7; color: white; border: none;">
-                            📉 आवक का न्यूनतम भाव (HARVEST TROUGH)
+                            📉 {t('harvest_trough')}
                         </span>
                         <h3 style="margin: 0.4rem 0 0.1rem 0; color: {COLOR_TEXT_MAIN} !important;">
                             {trough_m}

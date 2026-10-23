@@ -17,7 +17,11 @@ from src.config import (
     COLOR_SAGE_GREEN,
     COLOR_SOFT_MINT,
     COLOR_WHITE,
-    SUPPORTED_CROPS
+    COLOR_TEXT_MAIN,
+    SUPPORTED_CROPS,
+    t,
+    get_crop_name,
+    render_language_selector
 )
 from src.data_loader import get_cached_agricultural_data
 from src.market_data_service import MarketDataService
@@ -31,8 +35,26 @@ st.set_page_config(
 
 apply_custom_theme()
 
-st.markdown("## 📈 Crop Price Insights & Seasonal Dynamics")
-st.markdown("Analyze multi-year historical trends, cyclical harvest seasons, and month-over-month price behavior across Indian mandis.")
+with st.sidebar:
+    render_language_selector()
+    st.markdown("---")
+
+st.markdown(
+    f"""
+    <div style="background: linear-gradient(135deg, #064E3B 0%, #065F46 45%, #047857 100%); padding: 1.5rem 1.8rem; border-radius: 14px; color: white; margin-bottom: 1.5rem; box-shadow: 0 4px 15px -3px rgba(6, 78, 59, 0.25); border: 1px solid rgba(255, 255, 255, 0.15);">
+        <span style="background-color: #FEF3C7; color: #92400E; font-size: 0.78rem; font-weight: 700; padding: 0.25rem 0.7rem; border-radius: 9999px; text-transform: uppercase; letter-spacing: 0.04em;">
+            🌾 SEASONAL HARVEST CYCLES
+        </span>
+        <h1 style="color: #FFFFFF !important; font-size: 2rem; font-weight: 800; margin: 0.6rem 0 0.25rem 0;">
+            📈 <span style="color: #FBBF24;">{t('btn_insights')}</span>
+        </h1>
+        <p style="color: #ECFDF5; font-size: 0.98rem; margin: 0; line-height: 1.5;">
+            Analyze multi-year historical trends, cyclical harvest seasons, and month-over-month price behavior across Indian mandis.
+        </p>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
 # Data Initialization
 if "active_data" in st.session_state:
